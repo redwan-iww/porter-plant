@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { useZohoInit } from "./hook/useZohoInit";
+import { zohoApi } from "./zohoApi";
 
 const parentContainerStyle = {
   borderTop: "1px solid #BABABA",
@@ -16,6 +17,22 @@ function App() {
   const [initPageContent, setInitPageContent] = React.useState(
     <CircularProgress />
   );
+  React.useEffect(() => {
+    const fetchRecords = async () => {
+      const { data: contactRecords } =
+        await zohoApi.record.getBulkRecordDetailsRestAPI({
+          module: "Contacts",
+        });
+      const { data: accountRecords } =
+        await zohoApi.record.getBulkRecordDetailsRestAPI({
+          module: "Accounts",
+        });
+      console.log({ contactRecords, accountRecords });
+    };
+    if (module) {
+      fetchRecords();
+    }
+  }, [module]);
   return (
     <Box sx={parentContainerStyle}>
       <span

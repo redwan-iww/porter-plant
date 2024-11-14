@@ -7,6 +7,6 @@ export const dataCenterMap = {
   JP: "https://www.zohoapis.jp",
 };
 
-export const conn_name = "";
+export const conn_name = "dev_porter_conn";
 export const access_token_api_url = "";
 export const access_token_url = "";
