@@ -88,7 +88,20 @@ export async function getBulkRecordDetailsRestAPI({ module }) {
   }
 }
 
+export async function updateRecord({ module, recordData }) {
+  try {
+    const resp = await ZOHO.CRM.API.updateRecord({
+      Entity: module,
+      APIData: recordData,
+    });
+    console.log({ resp });
+  } catch (updateRecordError) {
+    console.log({ updateRecordError });
+  }
+}
+
 export const record = {
   getRecordsFromRelatedList,
   getBulkRecordDetailsRestAPI,
+  updateRecord,
 };

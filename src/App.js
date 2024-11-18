@@ -25,6 +25,9 @@ function App() {
   const [accountTypes, setAccountTypes] = React.useState();
   console.log({ accountTypes });
   const [contacts, setContacts] = React.useState();
+  // let selectedData = {};
+  let selectedData = React.useRef({});
+  // let selectedData = React.useRef({ contacts: null, accounts: null });
 
   React.useEffect(() => {
     const fetchRecords = async () => {
@@ -91,7 +94,7 @@ function App() {
               options={contacts}
               size="small"
               onChange={(event, value) => {
-                console.log(value);
+                selectedData.current.contacts = value;
               }}
               getOptionLabel={(option) => option?.Full_Name}
               renderInput={(params) => (
@@ -104,7 +107,7 @@ function App() {
               options={accountTypes?.Customer}
               size="small"
               onChange={(event, value) => {
-                console.log(value);
+                selectedData.current.Customer = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
@@ -117,7 +120,7 @@ function App() {
               options={accountTypes?.Distributor}
               size="small"
               onChange={(event, value) => {
-                console.log(value);
+                selectedData.current.Distributor = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
@@ -130,7 +133,7 @@ function App() {
               options={accountTypes?.Supplier}
               size="small"
               onChange={(event, value) => {
-                console.log(value);
+                selectedData.current.Supplier = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
@@ -150,6 +153,13 @@ function App() {
             <Button
               variant="contained"
               onClick={async (params) => {
+                zohoApi.record.updateRecord({
+                  module,
+                  recordData: {
+                    id: recordId?.[0],
+                    associate_data: selectedData.current,
+                  },
+                });
                 ZOHO.CRM.UI.Popup.closeReload();
               }}
             >
