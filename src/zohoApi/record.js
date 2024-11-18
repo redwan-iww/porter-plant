@@ -50,7 +50,7 @@ export async function getBulkRecordDetailsRestAPI_AT({ accessToken, url }) {
   }
 }
 
-export async function getBulkRecordDetailsRestAPI({ module, idArr }) {
+export async function getBulkRecordDetailsRestAPI_CONN({ module, idArr }) {
   let url = `${dataCenterMap.US}/crm/v6/${module}?fields=Full_Name,Phone,Mobile,Email`;
   if (idArr?.length > 0) {
     const tempIds = idArr?.join(",") || "";
@@ -67,6 +67,19 @@ export async function getBulkRecordDetailsRestAPI({ module, idArr }) {
     const resp_data = await resp?.details?.statusMessage?.data;
     return {
       data: resp_data,
+      error: null,
+    };
+  } catch (getBulkRecordDetailsRestAPIError) {
+    console.log({ getBulkRecordDetailsRestAPIError });
+    return { data: null, error: "Something went wrong" };
+  }
+}
+
+export async function getBulkRecordDetailsRestAPI({ module }) {
+  try {
+    const resp = await ZOHO.CRM.API.getAllRecords({ Entity: module });
+    return {
+      data: resp?.data,
       error: null,
     };
   } catch (getBulkRecordDetailsRestAPIError) {
