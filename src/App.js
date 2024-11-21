@@ -107,7 +107,10 @@ function App() {
               options={accountTypes?.Customer}
               size="small"
               onChange={(event, value) => {
-                selectedData.current.Customer = value;
+                if (!selectedData.current.account) {
+                  selectedData.current.account = {};
+                }
+                selectedData.current.account.Customer = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
@@ -120,7 +123,10 @@ function App() {
               options={accountTypes?.Distributor}
               size="small"
               onChange={(event, value) => {
-                selectedData.current.Distributor = value;
+                if (!selectedData.current.account) {
+                  selectedData.current.account = {};
+                }
+                selectedData.current.account.Distributor = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
@@ -133,7 +139,10 @@ function App() {
               options={accountTypes?.Supplier}
               size="small"
               onChange={(event, value) => {
-                selectedData.current.Supplier = value;
+                if (!selectedData.current.account) {
+                  selectedData.current.account = {};
+                }
+                selectedData.current.account.Supplier = value;
               }}
               getOptionLabel={(option) => option?.Account_Name}
               renderInput={(params) => (
